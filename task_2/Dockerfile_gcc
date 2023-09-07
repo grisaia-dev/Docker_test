@@ -1,0 +1,12 @@
+FROM ubuntu:latest
+    WORKDIR root/App/
+    RUN apt-get update && apt-get install -y g++ cmake git && \
+        git clone https://github.com/grisaia-dev/Refactoring.git .
+    WORKDIR task_1/
+    RUN mv * ../
+    WORKDIR ../
+    RUN rm -rf task_1/ && mkdir build
+    WORKDIR build/
+    RUN cmake build .. && make
+    WORKDIR ../bin/
+	ENTRYPOINT ["./REF"]
